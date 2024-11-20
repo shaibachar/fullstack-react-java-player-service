@@ -23,7 +23,9 @@ public class ChatClientConfiguration {
 
     @Bean
     public OllamaAPI ollamaAPI() {
-        return new OllamaAPI(OLLAMA_HOST);
+        OllamaAPI api = new OllamaAPI(OLLAMA_HOST);
+        api.setRequestTimeoutSeconds(120);
+        return api;
     }
 
 }
