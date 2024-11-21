@@ -5,9 +5,9 @@ import io.github.ollama4j.exceptions.OllamaBaseException;
 import io.github.ollama4j.models.Model;
 import io.github.ollama4j.models.OllamaResult;
 import io.github.ollama4j.types.OllamaModelType;
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import io.github.ollama4j.utils.OptionsBuilder;
 import io.github.ollama4j.utils.PromptBuilder;
@@ -17,10 +17,10 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class ChatClientService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatClientService.class);
 
+    @Autowired
     private OllamaAPI ollamaAPI;
 
     public List<Model> listModels() throws OllamaBaseException, IOException, URISyntaxException, InterruptedException {

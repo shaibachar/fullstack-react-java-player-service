@@ -3,9 +3,9 @@ package com.app.playerservicejava.controller.chat;
 import com.app.playerservicejava.service.chat.ChatClientService;
 import io.github.ollama4j.exceptions.OllamaBaseException;
 import io.github.ollama4j.models.Model;
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,12 +19,12 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @Controller
-@AllArgsConstructor
 @RequestMapping(value = "v1/chat", produces = { MediaType.APPLICATION_JSON_VALUE })
 public class ChatController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatController.class);
-    private final ChatClientService chatClientService;
+    @Autowired
+    private ChatClientService chatClientService;
 
     @PostMapping
     public @ResponseBody String chat() throws OllamaBaseException, IOException, InterruptedException {

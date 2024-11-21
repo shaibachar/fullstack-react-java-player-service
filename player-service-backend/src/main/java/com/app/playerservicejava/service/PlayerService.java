@@ -19,13 +19,9 @@ public class PlayerService {
 
     public Players getPlayers() {
         Players players = new Players();
-        Players shortList = new Players();
         playerRepository.findAll()
                 .forEach(players.getPlayers()::add);
-
-        shortList.setPlayers(players.getPlayers().stream().limit(10).toList());
-
-        return shortList;
+        return players;
     }
 
     public Optional<Player> getPlayerById(String playerId) {
