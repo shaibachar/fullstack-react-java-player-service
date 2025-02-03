@@ -8,7 +8,7 @@ Player Service is a backend application that serves baseball player data. In add
 - [maven.apache.org](https://maven.apache.org/install.html)
 - Spring Boot 3.3.4 (with Spring Web MVC, Spring Data JPA)
 - [H2 Database](https://www.h2database.com/html/main.html)
-- [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/) or [Podman](https://podman.io/)
 
 ## 🛠️ Setup Instructions
 
@@ -19,9 +19,9 @@ Player Service is a backend application that serves baseball player data. In add
       - Download and install from [maven.apache.org](https://maven.apache.org/install.html)
       - Verify installation, run: `mvn --version`
       - Verify java version linked to maven is Java 17 `Java version: 17.x.x`
-   3. Docker
-      - Download and install from [docker.com](https://www.docker.com/)
-      - Verify installation, run: `docker --version`
+   3. Container Manager
+      - Download and install from [docker.com](https://www.docker.com/)(recommended) or [podman](https://podman.io/) (alternative)
+      - Verify installation, run: `docker --version` for docker
 
 ## Run the application
 
@@ -74,6 +74,8 @@ Player service integrates with Ollama 🦙, which allows us to run LLMs locally.
     ```curl
     curl -v --location 'http://localhost:11434/api/generate' --header 'Content-Type: application/json' --data '{"model": "tinyllama","prompt": "why is the sky blue?", "stream": false}'
     ```
+
+Having trouble with docker? Try using podman as an alternative. Instructions [here](https://github.com/Intuit-A4A/fullstack-react-java-player-service/wiki/Supplemental-Materials:-Set-up-help#alternative-set-up-instructions).
 
 ### Part 4: Verify Player Service and LLM Integration
 
