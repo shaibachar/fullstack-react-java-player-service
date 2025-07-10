@@ -1,5 +1,11 @@
 # ⚾ Player Service
 
+
+## 📖 API Documentation (Swagger UI)
+
+Once the application is running, you can explore and test the REST API using Swagger UI:
+- [Swagger UI](http://localhost:8080/swagger-ui.html)
+
 Player Service is a backend application that serves baseball player data. In addition, Player service integrates with [Ollama](https://github.com/ollama/ollama/blob/main/docs/api.md), which allows us to run the [tinyllama LLM]((https://ollama.com/library/tinyllama)) locally.
 
 ## Dependencies
