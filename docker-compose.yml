@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Backend Spring Boot service
+  player-service-backend:
+    build:
+      context: ./player-service-backend
+    container_name: player-service-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    depends_on:
+      - ollama
+    # Uncomment the following if you want to persist the H2 database
+    # volumes:
+    #   - ./player-service-backend/data:/data
+
+  # React frontend service
+  players-ui-react:
+    build:
+      context: ./players-ui-react
+    container_name: players-ui-react
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://player-service-backend:8080
+    depends_on:
+      - player-service-backend
+
+  # Ollama service for LLMs
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # You can specify models to pull at startup using OLLAMA_MODELS env var
+    # environment:
+    #   - OLLAMA_MODELS=llama2
+
+volumes:
+  ollama_data:
+    # Persistent volume for Ollama models and data
+    driver: local

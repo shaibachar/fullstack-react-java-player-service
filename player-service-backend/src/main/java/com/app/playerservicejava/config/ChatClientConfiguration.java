@@ -13,8 +13,8 @@ public class ChatClientConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatClientConfiguration.class);
 
-    // Once you start the Ollama docker container - Ollama server runs locally on port 11434 at http://127.0.0.1:11434/
-    private String OLLAMA_HOST = "http://127.0.0.1:11434/";
+    // OLLAMA_HOST is now configurable via environment variable or application properties
+    private String OLLAMA_HOST = System.getenv().getOrDefault("OLLAMA_HOST", "http://ollama:11434/");
 
     @Bean
     public RestTemplate restTemplate() {
@@ -23,6 +23,7 @@ public class ChatClientConfiguration {
 
     @Bean
     public OllamaAPI ollamaAPI() {
+        LOGGER.info("Using OLLAMA_HOST: {}", OLLAMA_HOST);
         OllamaAPI api = new OllamaAPI(OLLAMA_HOST);
         api.setRequestTimeoutSeconds(120);
         return api;
