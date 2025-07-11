@@ -8,6 +8,8 @@ import {
   fetchPlayersByCountry,
 } from "../utils/DataFetcher";
 
+import { chatPlayersCsv } from "../utils/DataFetcher";
+
 function PlayerResults() {
   const [players, setPlayers] = useState([]);
   const [playerIdInput, setPlayerIdInput] = useState("");
@@ -18,6 +20,17 @@ function PlayerResults() {
   const [size, setSize] = useState(10);
   const [lastFetchType, setLastFetchType] = useState("all"); // 'all', 'id', 'country'
   const [lastFetchParam, setLastFetchParam] = useState("");
+  const [csvChatInput, setCsvChatInput] = useState("");
+  const [csvChatResponse, setCsvChatResponse] = useState("");
+  // Chat with players.csv
+  const handleCsvChat = async () => {
+    if (csvChatInput.trim().length === 0) {
+      alert("Please enter a question about the players.csv file.");
+      return;
+    }
+    const response = await chatPlayersCsv(csvChatInput);
+    setCsvChatResponse(response);
+  };
 
   useEffect(() => {
     // Only fetch all players on initial mount or when lastFetchType is 'all'
@@ -110,6 +123,28 @@ function PlayerResults() {
 
   return (
     <div className="container mt-4">
+      <div className="row mb-3">
+        <div className="col-md-12">
+          <label className="form-label">Ask a question about players.csv:</label>
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              value={csvChatInput}
+              onChange={(e) => setCsvChatInput(e.target.value)}
+              placeholder="e.g. Who has the most home runs?"
+            />
+            <button className="btn btn-success" onClick={handleCsvChat}>
+              Submit
+            </button>
+          </div>
+          {csvChatResponse && (
+            <div className="alert alert-info mt-2">
+              <strong>Response:</strong> {csvChatResponse}
+            </div>
+          )}
+        </div>
+      </div>
       <div className="row mb-3">
         <div className="col-md-4">
           <label className="form-label">Player id:</label>

@@ -20,8 +20,59 @@ import java.util.List;
 public class ChatClientService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatClientService.class);
 
-    @Autowired
     private OllamaAPI ollamaAPI;
+
+    @Autowired
+    public ChatClientService() {
+        String ollamaHost = System.getenv("OLLAMA_HOST");
+        if (ollamaHost == null || ollamaHost.isEmpty()) {
+            ollamaHost = "http://ollama:11434"; // default for docker-compose
+        }
+        this.ollamaAPI = new OllamaAPI(ollamaHost);
+    }
+
+    public String loadCsvByFileName(String csvFileName) {
+        String csvData = "";
+        java.nio.file.Path csvPath = java.nio.file.Paths.get("player-service-backend", csvFileName);
+        try {
+            csvData = java.nio.file.Files.readString(csvPath);
+        } catch (IOException e) {
+            LOGGER.error("Failed to read {}: {}", csvFileName, e.toString());
+            csvData = "(CSV file could not be loaded)";
+        }
+        return csvData;
+    }
+
+    public String loadCsv(java.io.File file) {
+        String csvData = "";
+        try {
+            csvData = java.nio.file.Files.readString(file.toPath());
+        } catch (IOException e) {
+            LOGGER.error("Failed to read file {}: {}", file.getAbsolutePath(), e.toString());
+            csvData = "(CSV file could not be loaded)";
+        }
+        return csvData;
+    }
+
+    public String chatPlayersCsv(String question) throws OllamaBaseException, IOException, InterruptedException {
+        return chatPlayersCsv(question, "Player.csv");
+    }
+
+    public String chatPlayersCsv(String question, String csvFileName) throws OllamaBaseException, IOException, InterruptedException {
+        String model = OllamaModelType.TINYLLAMA;
+        String csvData = loadCsvByFileName(csvFileName);
+        PromptBuilder promptBuilder = new PromptBuilder()
+                .addLine("You are an expert on baseball player statistics.")
+                .addLine("Here is the contents of " + csvFileName + ":")
+                .addSeparator()
+                .addLine(csvData)
+                .addSeparator()
+                .addLine("Answer the following question using the data in " + csvFileName + ".")
+                .addLine("Question: " + question);
+        boolean raw = false;
+        OllamaResult response = ollamaAPI.generate(model, promptBuilder.build(), raw, new OptionsBuilder().build());
+        return response.getResponse();
+    }
 
     public List<Model> listModels() throws OllamaBaseException, IOException, URISyntaxException, InterruptedException {
         List<Model> models = ollamaAPI.listModels();

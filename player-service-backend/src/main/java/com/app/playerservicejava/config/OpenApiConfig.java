@@ -19,11 +19,10 @@ public class OpenApiConfig {
     }
 
     @Bean
-    public GroupedOpenApi publicApi() {
-        String apiVersion = System.getProperty("api.version", "v1");
+    public GroupedOpenApi allControllersApi() {
         return GroupedOpenApi.builder()
-                .group("public")
-                .pathsToMatch("/api/**", "/" + apiVersion + "/players/**")
+                .group("all-controllers")
+                .pathsToMatch("/**")
                 .build();
     }
 }

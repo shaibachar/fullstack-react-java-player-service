@@ -1,0 +1,1 @@
+docker restart player-service-backend
