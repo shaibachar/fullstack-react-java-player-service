@@ -20,9 +20,10 @@ public class OpenApiConfig {
 
     @Bean
     public GroupedOpenApi publicApi() {
+        String apiVersion = System.getProperty("api.version", "v1");
         return GroupedOpenApi.builder()
                 .group("public")
-                .pathsToMatch("/api/**", "/players/**")
+                .pathsToMatch("/api/**", "/" + apiVersion + "/players/**")
                 .build();
     }
 }
