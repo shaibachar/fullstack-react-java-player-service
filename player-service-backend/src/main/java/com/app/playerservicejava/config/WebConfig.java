@@ -12,7 +12,7 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(@org.springframework.lang.NonNull CorsRegistry registry) {
-                String allowedOrigin = System.getProperty("frontend.url", System.getenv().getOrDefault("FRONTEND_URL", "http://localhost:3000"));
+                String allowedOrigin = System.getProperty("frontend.url", System.getenv().getOrDefault("FRONTEND_URL", "http://localhost:30000"));
                 registry.addMapping("/**")
                         .allowedOrigins(allowedOrigin)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
