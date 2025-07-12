@@ -1,0 +1,4 @@
+apiVersion: v2
+name: player-service-chart
+description: Helm chart for Player Service stack
+version: 0.1.0

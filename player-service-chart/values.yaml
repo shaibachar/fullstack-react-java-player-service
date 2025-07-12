@@ -1,0 +1,12 @@
+backend:
+  image: player-service-backend:latest
+  port: 8080
+
+frontend:
+  image: players-ui-react:latest
+  port: 80
+
+ollama:
+  image: players-ollama:latest
+  port: 11434
+  volume: ollama-data
