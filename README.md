@@ -37,7 +37,11 @@ Player Service App
 3. Set up frontend app
     - Refer to [players-ui-react README](players-ui-react/README.md) for frontend setup instructions.
 
-## Helm & Kubernetes Deployment
+
+### Accessing a4a_model from React
+- The React frontend is preconfigured to use the a4a_model API at `http://localhost:30002`.
+- Use the Team Generator menu in the UI to interact with the microservice.
+
 
 ### Install Helm (Windows)
 Download and install from: https://helm.sh/docs/intro/install/
@@ -81,6 +85,8 @@ docker build -t player-service-backend:latest ./player-service-backend
 docker build -t players-ui-react:latest ./players-ui-react
 
 docker build -t players-ollama:latest -f Dockerfile.ollama-model .
+
+docker build -t a4a_model ./player-service-model/a4a_model
 ```
 
 2. No need to load images into Kubernetes—Docker Desktop shares images automatically.

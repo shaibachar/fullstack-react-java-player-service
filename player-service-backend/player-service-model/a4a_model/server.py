@@ -33,7 +33,10 @@ player_stats = {
 # list of feedback exclusions
 exclude_db = {}
 
+
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 
 class TeamException(Exception):
