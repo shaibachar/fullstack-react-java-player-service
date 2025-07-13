@@ -1,3 +1,30 @@
+const A4A_API_URL = process.env.REACT_APP_A4A_API_URL || 'http://localhost:5000';
+
+export async function generateTeam(payload) {
+    return fetch(`${A4A_API_URL}/team/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    })
+        .then(response => response.json())
+        .catch(error => {
+            console.log('Error generating team:', error);
+            return null;
+        });
+}
+
+export async function sendTeamFeedback(payload) {
+    return fetch(`${A4A_API_URL}/team/feedback`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    })
+        .then(response => response.json())
+        .catch(error => {
+            console.log('Error sending team feedback:', error);
+            return null;
+        });
+}
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 const API_VERSION = process.env.REACT_APP_API_VERSION || 'v1';

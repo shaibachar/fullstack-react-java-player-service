@@ -1,3 +1,7 @@
+  
+a4a_model:
+  image: a4a_model:latest
+  port: 5000
 backend:
   image: player-service-backend:latest
   port: 8080

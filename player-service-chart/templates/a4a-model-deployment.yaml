@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: a4a-model
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: a4a-model
+  template:
+    metadata:
+      labels:
+        app: a4a-model
+    spec:
+      containers:
+        - name: a4a-model
+          image: a4a_model:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "0.5"
+            limits:
+              memory: "2Gi"
+              cpu: "1"
