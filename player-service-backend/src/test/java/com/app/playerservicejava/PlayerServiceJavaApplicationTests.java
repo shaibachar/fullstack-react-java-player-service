@@ -1,5 +1,8 @@
 package com.app.playerservicejava;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.io.InputStream;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +15,7 @@ import com.app.playerservicejava.service.PlayerService;
 
 @SpringBootTest
 class PlayerServiceJavaApplicationTests {
-
+   
     @Autowired
     private PlayerService playerService;
 
@@ -20,6 +23,11 @@ class PlayerServiceJavaApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void testResourceAvailable() {
+        InputStream is = getClass().getClassLoader().getResourceAsStream("Player.csv");
+        assertNotNull(is, "Player.csv should be available in the classpath");
+    }
 
     @Test
     void testGetPlayersDefaultPagination() {
@@ -34,7 +42,6 @@ class PlayerServiceJavaApplicationTests {
         assert players != null;
         assert players.getPlayers().size() <= 5;
     }
-
 
     @Test
     void testGetPlayerByIdValid() {
@@ -51,7 +58,6 @@ class PlayerServiceJavaApplicationTests {
         assert player != null;
         assert player.isEmpty();
     }
-
 
     @Test
     void testGetPlayersByBirthCountryDefaultPagination() {

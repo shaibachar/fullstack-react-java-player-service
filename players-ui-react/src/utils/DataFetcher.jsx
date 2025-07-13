@@ -1,4 +1,6 @@
 const A4A_API_URL = process.env.REACT_APP_A4A_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+const API_VERSION = process.env.REACT_APP_API_VERSION || 'v1';
 
 export async function generateTeam(payload) {
     return fetch(`${A4A_API_URL}/team/generate`, {
@@ -26,8 +28,6 @@ export async function sendTeamFeedback(payload) {
         });
 }
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
-const API_VERSION = process.env.REACT_APP_API_VERSION || 'v1';
 
 export async function chatPlayersCsv(question) {
     return fetch(`${API_BASE_URL}/${API_VERSION}/chat/players-csv`, {

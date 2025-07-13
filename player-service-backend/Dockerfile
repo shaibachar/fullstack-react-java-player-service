@@ -13,7 +13,7 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/player-service-java-0.0.1-SNAPSHOT.jar app.jar
 # Copy Player.csv for H2 database initialization
-COPY Player.csv Player.csv
+COPY src/main/resources/Player.csv Player.csv
 EXPOSE 8080
 ENV JAVA_OPTS=""
 ENV OLLAMA_HOST=http://ollama:11434/
