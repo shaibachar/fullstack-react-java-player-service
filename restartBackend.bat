@@ -1,1 +1,1 @@
-docker restart player-service-backend
+kubectl rollout restart deployment backend

@@ -1,1 +1,1 @@
-docker exec ollama ollama pull tinyllama
+docker exec b45a7de1103c ollama pull tinyllama
